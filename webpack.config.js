@@ -2,16 +2,18 @@ const path = require('path');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const isProd = process.env.npm_lifecycle_event === 'build';
 
-module.exports = {
-    mode: 'development',
+const config = {
+    mode: isProd ? 'production' : 'development',
     entry: [
         path.resolve(__dirname, 'src/main.js'),
         'webpack-dev-server/client?http://localhost:8085/'
     ],
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'bundle.js'
+        filename: 'bundle.[hash:8].js'
     },
     module: {
         rules: [{
@@ -44,12 +46,15 @@ module.exports = {
             template: './public/index.html'
         }),
         new MiniCssExtractPlugin({
-            filename: '[name].css',
+            filename: '[name].[contenthash:8].css',
             chunkFilename: '[id].css'
         }),
         new webpack.HotModuleReplacementPlugin()
-    ],
-    devServer: {
+    ]
+};
+
+if (!isProd) {
+    config.devServer = {
         contentBase: 'dist',
         compress: true,
         port: 8085,
@@ -57,5 +62,12 @@ module.exports = {
         hot: true,
         inline: true,
         open: true
-    }
+    };
 }
+else {
+    config.plugins.push(
+        new CleanWebpackPlugin()
+    );
+}
+
+module.exports = config;

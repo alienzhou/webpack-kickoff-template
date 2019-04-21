@@ -8,8 +8,7 @@ const isProd = process.env.npm_lifecycle_event === 'build';
 const config = {
     mode: isProd ? 'production' : 'development',
     entry: [
-        path.resolve(__dirname, 'src/main.js'),
-        'webpack-dev-server/client?http://localhost:8085/'
+        path.resolve(__dirname, 'src/main.js')
     ],
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -44,16 +43,18 @@ const config = {
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: './public/index.html'
-        }),
-        new MiniCssExtractPlugin({
-            filename: '[name].[contenthash:8].css',
-            chunkFilename: '[id].css'
-        }),
-        new webpack.HotModuleReplacementPlugin()
+        })
     ]
 };
 
 if (!isProd) {
+    config.entry.push('webpack-dev-server/client?http://localhost:8085/');
+    config.plugins.push(
+        new MiniCssExtractPlugin({
+            filename: '[name].css',
+            chunkFilename: '[id].css'
+        })
+    );
     config.devServer = {
         contentBase: 'dist',
         compress: true,
@@ -66,7 +67,11 @@ if (!isProd) {
 }
 else {
     config.plugins.push(
-        new CleanWebpackPlugin()
+        new CleanWebpackPlugin(),
+        new MiniCssExtractPlugin({
+            filename: '[name].[contenthash:8].css',
+            chunkFilename: '[id].css'
+        })
     );
 }
 

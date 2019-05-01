@@ -1,14 +1,14 @@
-# webpack-kickoff
+# webpack-kickoff-template
 
-一个简单的 Webpack 模板。
+Help you to quickly start a project based on [Webpack](https://webpack.js.org/).
 
-由于平时工作中经常需要：
+In my work, I often need to start a tiny demo quickly to
 
-- 快速尝试一个浏览器端 npm 包的使用；
-- 快速测试某个 webpack 插件或 loader 效果；
-- 快速写一个功能的简单 demo 页；
+- try a npm lib by `import`
+- test/try a webpack plugin or loader
+- write a demo page for some features
 - ……
 
-webpack-kickoff 帮你快速启动这么一个基于 webpack 的完整前端服务。不包含任何运行时内置库，让你快速开始。
+Without configuring Wepack, `generator-webpack-kickoff` makes these more simple.
 
 ![](./docs/page.gif)

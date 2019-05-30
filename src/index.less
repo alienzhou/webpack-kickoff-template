@@ -16,23 +16,23 @@ body {
 h1 {
     margin: 10vh 0 6vh 0;
 	text-align: center;
-  	font-size: 4.6vw;
+    font-size: 4.6vw;
 	position: relative;
 	font-weight: 900;
 	text-transform: uppercase;
 	line-height: 1;
 	color: transparent;
-	
+
 	&:focus {
 		outline: none;
     }
-    
+
     &::before, &::after {
         content: attr(data-heading);
         position: absolute;
         top: 0;
         left: 50%;
-        transform: translateX(-50%);	
+        transform: translateX(-50%);
     }
 
     &::before {

@@ -37,7 +37,14 @@ const config = {
                     context: 'publick'
                 }
             }]
+        }, {
+            test: /\.ts$/,
+            use: 'ts-loader',
+            exclude: /node_modules/
         }]
+    },
+    resolve: {
+        extensions: ['.ts', '.js' ]
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -49,6 +56,7 @@ const config = {
 
 if (!isProd) {
     config.entry.push('webpack-dev-server/client?http://localhost:8085/');
+    config.devtool = 'inline-source-map';
     config.plugins.push(
         new MiniCssExtractPlugin({
             filename: '[name].css',
